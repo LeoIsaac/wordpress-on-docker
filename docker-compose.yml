@@ -1,0 +1,22 @@
+web:
+    container_name: wordpress_web
+    build: php
+    ports:
+        - 80:80
+    volumes:
+        - ./wordpress:/var/www/html
+        - ./php/000-default.conf:/etc/apache2/sites-available/000-default.conf
+    links:
+        - mysql:mysql
+    hostname: wordpress
+    domainname: isaac.lab
+
+mysql:
+    image: mysql:5.7
+    volumes:
+        - ./laravel:/var/www/html
+    environment:
+        MYSQL_ROOT_PASSWORD: pass
+        MYSQL_DATABASE: wordpress
+        MYSQL_USER: isaac
+        MYSQL_PASSWORD: pass
